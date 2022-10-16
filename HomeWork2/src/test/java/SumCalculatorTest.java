@@ -39,10 +39,13 @@ public class SumCalculatorTest {
 
     @Test
     public void testThatSumCalculatorMethodWorksOkForZero() {
+       int [] numbers = {0,-1};
+        for (int input : numbers) {
+            Assertions.assertThrows(
+                    IllegalArgumentException.class,() -> new SumCalculator().sumCalculator(input)
+            );
 
-            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-                sum.sumCalculator(0);
-            });
-            assertEquals("The number must be greater than 0", exception.getMessage());
-    }
+            }
+        }
+
 }
