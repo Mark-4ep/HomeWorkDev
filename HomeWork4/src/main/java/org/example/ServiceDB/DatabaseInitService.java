@@ -1,20 +1,25 @@
 package org.example.ServiceDB;
 
+import org.example.Prefs.Prefs;
 import org.example.ReadFile.ReadFile;
 
 public class DatabaseInitService {
-    private static final String LINK_FILE = "/Users/designer/Documents/GitHub/HomeWorkDev/HomeWork4/sql/init_db.sql";
-
 
     public static void main(String[] args) {
 
         Database database = Database.getInstance();
+        DatabaseInitService.InitDb(database);
+
+    }
+
+    public static void InitDb(Database database) {
+        String initDbFileName = new Prefs().getString(Prefs.INIT_DB_SQL_FILE_PATH);
 
         ReadFile readFile = new ReadFile();
-        readFile.setSql(LINK_FILE);
+        readFile.setSql(initDbFileName);
 
-       for (String sql : readFile.getSql()) {
-           database.executeUpdate(sql + ";");
+        for (String sql : readFile.getSql()) {
+            database.executeUpdate(sql + ";");
         }
     }
 

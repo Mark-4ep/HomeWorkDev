@@ -1,17 +1,19 @@
 package org.example.ServiceDB;
 
+import org.example.Prefs.Prefs;
+
 import java.sql.*;
 
 public class Database {
     private static final Database INSTANCE = new Database();
     private Connection connection;
     private Database() {
-        String dbUrl = "jdbc:mysql://URL/";
-        String dbUser = "name";
-        String dbPass = "password";
+        String connectionUrl = new Prefs().getString(Prefs.DB_JDBC_CONNECTION_URL);
+        String connectionUser = new Prefs().getString(Prefs.DB_JDBC_NAME_USER);
+        String connectionPass = new Prefs().getString(Prefs.DB_JDBC_PASSWORD);
 
         try {
-            connection = DriverManager.getConnection(dbUrl, dbUser, dbPass);
+            connection = DriverManager.getConnection(connectionUrl, connectionUser, connectionPass);
         }catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -37,6 +39,15 @@ public class Database {
     public void close() {
         try {
             connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ResultSet executeQuery(String sql) {
+        try {
+            Statement  st = connection.createStatement();
+           return st.executeQuery(sql);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

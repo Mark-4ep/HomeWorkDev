@@ -1,15 +1,21 @@
 package org.example.ServiceDB;
 
+import org.example.Prefs.Prefs;
 import org.example.ReadFile.ReadFile;
 
 public class DatabasePopulateService {
-    private static final String LINK_FILE = "/Users/designer/Documents/GitHub/HomeWorkDev/HomeWork4/sql/populate_db.sql";
 
     public static void main(String[] args) {
 
         Database database = Database.getInstance();
+        DatabasePopulateService.populateDb(database);
+    }
+
+    public static void populateDb(Database database) {
+        String populateDbFileName = new Prefs().getString(Prefs.POPULATE_DB_SQL_FILE_PATH);
+
         ReadFile readFile = new ReadFile();
-        readFile.setSql(LINK_FILE);
+        readFile.setSql(populateDbFileName);
 
         for (String sql : readFile.getSql()) {
             database.executeUpdate(sql + ";");

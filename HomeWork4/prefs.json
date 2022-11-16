@@ -1,0 +1,15 @@
+{
+  "jdbcUrl" : "jdbc:mysql://127.0.0.1:3306/",
+  "nameUser" : "root",
+  "password" : "Karden_97",
+
+
+  "initDbSql" : "./sql/init_db.sql",
+  "populateDbSql" : "./sql/populate_db.sql",
+
+  "findLongestProject" : "./sql/find_longest_project.sql",
+  "findMaxProjectsClient" : "./sql/find_max_projects_client.sql",
+  "findMaxSalaryWorker" : "./sql/find_max_salary_worker.sql",
+  "findYoungestEldestWorkers" : "./sql/find_youngest_eldest_workers.sql",
+  "printProjectPrices" : "./sql/print_project_prices.sql"
+}

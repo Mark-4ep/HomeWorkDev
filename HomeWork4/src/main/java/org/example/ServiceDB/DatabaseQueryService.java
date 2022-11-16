@@ -1,39 +1,33 @@
 package org.example.ServiceDB;
 
+import org.example.Prefs.Prefs;
 import org.example.ReadFile.ReadFile;
 import org.example.descriptionСlasses.*;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseQueryService {
 
-    private Database database = Database.getInstance();
-    private ReadFile readFile = new ReadFile();
-    private String linkFile;
-
+    private final Database database = Database.getInstance();
+    private final ReadFile readFile = new ReadFile();
 
 
     public List<LongestProject> findLongestProject () throws Exception {
-        linkFile = "/Users/designer/Documents/GitHub/HomeWorkDev/HomeWork4/sql/find_longest_project.sql";
+        String findLongestProjectFileName = new Prefs().getString(Prefs.FIND_LONGEST_PROJECT_FILE_PATH);
 
         List<LongestProject> longestProjectList = new ArrayList<>();
-        readFile.setSql(linkFile);
-
-        try (Connection connection = database.getConnection()) {
-            Statement st = connection.createStatement();
+        readFile.setSql(findLongestProjectFileName);
 
             for (String sql : readFile.getSql()) {
 
                 if(sql.startsWith("USE")){
-                    st.executeUpdate(sql);
+                    database.executeUpdate(sql);
                     continue;
                 }
 
-                ResultSet rs = st.executeQuery(sql);
+                ResultSet rs = database.executeQuery(sql);
 
                 while (rs.next()) {
                     int projectId = rs.getInt("project_id");
@@ -43,29 +37,25 @@ public class DatabaseQueryService {
                 }
             }
 
-        } catch (Exception exc) {
-            exc.printStackTrace();
-        }
+
 
         return longestProjectList;
     }
-    public List<MaxProjectsClient> maxProjectsClient () throws Exception {
-        linkFile = "/Users/designer/Documents/GitHub/HomeWorkDev/HomeWork4/sql/find_max_projects_client.sql";
+    public List<MaxProjectsClient> findMaxProjectsClient () throws Exception {
+        String findMaxProjectClientFileName = new Prefs().getString(Prefs.FIND_MAX_PROJECTS_CLIENT_FILE_PATH);
 
         List<MaxProjectsClient> maxProjectsClientsList = new ArrayList<>();
-        readFile.setSql(linkFile);
+        readFile.setSql(findMaxProjectClientFileName);
 
-        try (Connection connection = database.getConnection()) {
-            Statement st = connection.createStatement();
 
             for (String sql : readFile.getSql()) {
 
                 if(sql.startsWith("USE")){
-                    st.executeUpdate(sql);
+                    database.executeUpdate(sql);
                     continue;
                 }
 
-                ResultSet rs = st.executeQuery(sql);
+                ResultSet rs = database.executeQuery(sql);
 
                 while (rs.next()) {
                     String name = rs.getString("name");
@@ -74,31 +64,23 @@ public class DatabaseQueryService {
                     maxProjectsClientsList.add(maxProjectsClient);
                 }
             }
-
-        } catch (Exception exc) {
-            exc.printStackTrace();
-        }
-
         return maxProjectsClientsList;
     }
 
-    public List<MaxSalaryClient> maxSalaryClient () throws Exception {
-        linkFile = "/Users/designer/Documents/GitHub/HomeWorkDev/HomeWork4/sql/find_max_salary_worker.sql";
+    public List<MaxSalaryClient> findMaxSalaryWorker () throws Exception {
+        String findMaxSalaryWorkerFileName = new Prefs().getString(Prefs.FIND_MAX_SALARY_WORKER_FILE_PATH);
 
         List<MaxSalaryClient> maxSalaryClientsList = new ArrayList<>();
-        readFile.setSql(linkFile);
-
-        try (Connection connection = database.getConnection()) {
-            Statement st = connection.createStatement();
+        readFile.setSql(findMaxSalaryWorkerFileName);
 
             for (String sql : readFile.getSql()) {
 
                 if(sql.startsWith("USE")){
-                    st.executeUpdate(sql);
+                    database.executeUpdate(sql);
                     continue;
                 }
 
-                ResultSet rs = st.executeQuery(sql);
+                ResultSet rs = database.executeQuery(sql);
 
                 while (rs.next()) {
                     String name = rs.getString("name");
@@ -108,30 +90,23 @@ public class DatabaseQueryService {
                 }
             }
 
-        } catch (Exception exc) {
-            exc.printStackTrace();
-        }
-
         return maxSalaryClientsList;
     }
 
-    public List<YoungestEldestWorkers> youngestEldestWorkers () throws Exception {
-        linkFile = "/Users/designer/Documents/GitHub/HomeWorkDev/HomeWork4/sql/find_youngest_eldest_workers.sql";
+    public List<YoungestEldestWorkers> findYoungestEldestWorkers () throws Exception {
+        String findYoungestEldestWorkersFileName = new Prefs().getString(Prefs.FIND_YOUNGEST_ELDEST_WORKERS_FILE_PATH);
 
         List<YoungestEldestWorkers> youngestEldestWorkersList = new ArrayList<>();
-        readFile.setSql(linkFile);
-
-        try (Connection connection = database.getConnection()) {
-            Statement st = connection.createStatement();
+        readFile.setSql(findYoungestEldestWorkersFileName);
 
             for (String sql : readFile.getSql()) {
 
                 if(sql.startsWith("USE")){
-                    st.executeUpdate(sql);
+                    database.executeUpdate(sql);
                     continue;
                 }
 
-                ResultSet rs = st.executeQuery(sql);
+                ResultSet rs = database.executeQuery(sql);
 
                 while (rs.next()) {
                     String type = rs.getString("Type");
@@ -143,32 +118,25 @@ public class DatabaseQueryService {
                 }
             }
 
-        } catch (Exception exc) {
-            exc.printStackTrace();
-        }
-
         return youngestEldestWorkersList;
     }
 
     //
 
     public List<PrintProjectPrices> printProjectPrices () throws Exception {
-        linkFile = "/Users/designer/Documents/GitHub/HomeWorkDev/HomeWork4/sql/print_project_prices.sql";
+        String printProjectPricesFileName = new Prefs().getString(Prefs.PRINT_PROJECT_PRICES_FILE_PATH);
 
         List<PrintProjectPrices> printProjectPricesList = new ArrayList<>();
-        readFile.setSql(linkFile);
-
-        try (Connection connection = database.getConnection()) {
-            Statement st = connection.createStatement();
+        readFile.setSql(printProjectPricesFileName);
 
             for (String sql : readFile.getSql()) {
 
                 if(sql.startsWith("USE")){
-                    st.executeUpdate(sql);
+                    database.executeUpdate(sql);
                     continue;
                 }
 
-                ResultSet rs = st.executeQuery(sql);
+                ResultSet rs = database.executeQuery(sql);
 
                 while (rs.next()) {
                     int projectId = rs.getInt("project_id");
@@ -178,15 +146,7 @@ public class DatabaseQueryService {
                     printProjectPricesList.add(printProjectPrices);
                 }
             }
-
-        } catch (Exception exc) {
-            exc.printStackTrace();
-        }
-
         return printProjectPricesList;
     }
-
-
-
 
 }
