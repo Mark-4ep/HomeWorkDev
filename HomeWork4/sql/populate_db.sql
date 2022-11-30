@@ -13,12 +13,11 @@ INSERT INTO worker (id, name, birthday, level, salary) VALUES
 (10, 'Aurora', '2004-12-01', 'Trainee', 1000);
 
 INSERT INTO client (id, name) VALUES
-(1,'Henry'),
-(2,'Ellie'),
-(3,'Jack'),
-(4,'Owen'),
-(5,'Lily');
-
+(1, 'Henry'),
+(2, 'Ellie'),
+(3, 'Jack'),
+(4, 'Owen'),
+(5, 'Lily');
 
 INSERT INTO project (id, client_id, start_date, finish_date) VALUES
 (1, 5, '2019-01-01', '2020-02-12'),
@@ -30,8 +29,7 @@ INSERT INTO project (id, client_id, start_date, finish_date) VALUES
 (7, 4, '2012-06-20', '2013-03-21'),
 (8, 3, '2013-03-12', '2014-04-20'),
 (9, 2, '2014-02-08', '2016-05-07'),
-(10,1, '2017-10-06', '2018-06-04');
-
+(10, 1, '2017-10-06', '2018-06-04');
 
 INSERT INTO project_worker (project_id, worker_id) VALUES
 (1, 1),
