@@ -1,7 +1,7 @@
 {
-  "jdbcUrl" : "jdbc:mysql://127.0.0.1:3306/",
-  "nameUser" : "root",
-  "password" : "Karden_97",
+  "jdbcUrl" : "jdbc:mysql://numbers/",
+  "nameUser" : "name",
+  "password" : "*****",
 
 
   "initDbSql" : "./sql/init_db.sql",
