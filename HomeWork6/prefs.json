@@ -1,5 +1,5 @@
 {
-  "jdbcUrl" : "jdbc:mysql://URL/",
+  "jdbcUrl" : "jdbc:mysql://127.0.0.1:3306/",
   "nameUser" : "root",
-  "password" : "*****"
+  "password" : "Karden_97"
 }
