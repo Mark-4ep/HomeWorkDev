@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TimeZone {
-    public List<String> timeZone () {
+    public List<String> timeZone() {
         List<String> timeZones = new ArrayList<>();
 
         timeZones.add("UTC-12");
