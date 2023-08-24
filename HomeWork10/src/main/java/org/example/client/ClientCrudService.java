@@ -50,13 +50,13 @@ public class ClientCrudService implements ClientService{
     }
 
     @Override
-    public void getClient(long id) throws NullOutputException {
+    public Client getClient(long id) throws NullOutputException {
         try(Session session = hibernateUtil.getSessionFactory().openSession()) {
             Client client = session.get(Client.class , id);
             if (client == null) {
                 throw new NullOutputException("No client found with the id :" + id);
             } else {
-                System.out.println(client);
+                return client;
             }
         }
     }

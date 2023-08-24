@@ -2,6 +2,7 @@ package org.example.ticket;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Generated;
 import org.example.client.Client;
 import org.example.planet.Planet;
 
@@ -13,6 +14,9 @@ public class Ticket {
     @Id
     private long id;
 
+
+    @Column (name = "created_at")
+    private String createdAt;
 
     @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", referencedColumnName = "id")

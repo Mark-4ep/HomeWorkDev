@@ -8,14 +8,15 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
+import java.util.Set;
 
 public class TicketCrudService implements TicketService{
     HibernateUtil hibernateUtil = HibernateUtil.getInstance();
 
     @Override
-    public void createNewTicket(long clientId, String fromPlanet, String toPlanet) {
+    public void createNewTicket(String createdAt, long clientId, String fromPlanet, String toPlanet)  throws NullOutputException {
         if (!fromPlanet.matches("^[A-Z0-9]*$") || !toPlanet.matches("^[A-Z0-9]*$")) {
-            System.out.println("The planet ID must contain capital letters without special characters.");
+            throw new NullOutputException("The planet ID must contain capital letters without special characters.");
         } else {
             try(Session session = hibernateUtil.getSessionFactory().openSession()){
                 Transaction transaction = session.beginTransaction();
@@ -24,22 +25,21 @@ public class TicketCrudService implements TicketService{
                 Planet existingToPlanet = session.get(Planet.class, toPlanet);
 
                 if (existingClient == null) {
-                    System.out.println("Client with ID " + clientId + " does not exist.");
+                    throw new NullOutputException("Client with ID " + clientId + " does not exist.");
                 } else if (existingFromPlanet == null) {
-                    System.out.println("Planet with ID " + fromPlanet + " does not exist.");
+                    throw new NullOutputException("Planet with ID " + fromPlanet + " does not exist.");
 
                 }
                 else if (existingToPlanet == null) {
-                    System.out.println("Planet with ID " + toPlanet + " does not exist.");
+                    throw new NullOutputException("Planet with ID " + toPlanet + " does not exist.");
 
                 }else {
                     Ticket newTicket = new Ticket();
+                    newTicket.setCreatedAt(createdAt);
                     newTicket.setClient(existingClient);
                     newTicket.setFromPlanet(existingFromPlanet);
                     newTicket.setToPlanet(existingToPlanet);
                     session.persist(newTicket);
-
-                    System.out.println("The new ticket has been created.\n" + newTicket);
 
                     transaction.commit();
                 }
@@ -47,17 +47,17 @@ public class TicketCrudService implements TicketService{
         }
     }
     @Override
-    public void getTicket(long id) throws NullOutputException {
+    public Ticket getTicket(long id) throws NullOutputException {
         Session session = hibernateUtil.getSessionFactory().openSession();
         Ticket ticket = session.get(Ticket.class, id);
-        System.out.println("ticket = " + ticket);
         session.close();
+        return ticket;
     }
 
     @Override
     public void updateTicket(long ticketId, String fromPlanet, String toPlanet) throws NullOutputException {
         if (!fromPlanet.matches("^[A-Z0-9]*$") || !toPlanet.matches("^[A-Z0-9]*$")) {
-            System.out.println("The planet ID must contain capital letters without special characters.");
+            throw new NullOutputException("The planet ID must contain capital letters without special characters.");
         } else {
             try(Session session = hibernateUtil.getSessionFactory().openSession();) {
                 Transaction transaction = session.beginTransaction();
@@ -75,7 +75,6 @@ public class TicketCrudService implements TicketService{
                 } else {
                     existing.setToPlanet(newToPlanet);
                     existing.setFromPlanet(newFromPlanet);
-                    System.out.println("Successfully updated the ticket");
                     transaction.commit();
                 }
             }
@@ -85,7 +84,6 @@ public class TicketCrudService implements TicketService{
     public List<Ticket> getAllTicket(){
         Session session = hibernateUtil.getSessionFactory().openSession();
             List<Ticket> tickets = session.createQuery("from Ticket", Ticket.class).list();
-            System.out.println("passengers = " + tickets);
             session.close();
             return tickets;
     }
@@ -103,7 +101,6 @@ public class TicketCrudService implements TicketService{
             session.remove(existing);
 
             transaction.commit();
-            System.out.println("Ticket Removed ");
         }
     }
 }

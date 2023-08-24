@@ -1,8 +1,4 @@
 
-CREATE DATABASE HomeWork10;
-
-USE HomeWork10;
-
 CREATE TABLE Client (
     id BIGINT auto_increment PRIMARY KEY ,
     name VARCHAR(200) UNIQUE

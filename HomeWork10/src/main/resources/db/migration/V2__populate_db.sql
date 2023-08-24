@@ -1,5 +1,3 @@
-USE HomeWork10;
-
 INSERT INTO Client (name) VALUES
     ('Mark'),
     ('Ron'),

@@ -52,13 +52,13 @@ public class PlanetCrudService implements PlanetService {
     }
 
     @Override
-    public void getPlanet(String planetId) throws NullOutputException {
+    public Planet getPlanet(String planetId) throws NullOutputException {
         try(Session session = hibernateUtil.getSessionFactory().openSession()) {
             Planet planet = session.get(Planet.class, planetId);
             if (planet == null) {
                 throw new NullOutputException("No planet found with the id :" + planetId);
             } else {
-                System.out.println(planet);
+                return planet;
             }
         }
     }

@@ -1,18 +1,19 @@
 package org.example.FlyWayService;
 
+import org.example.preferences.PropertiesFileReader;
 import org.flywaydb.core.Flyway;
+
+import java.io.IOException;
 
 
 public class DatabaseFlyWayService {
 
-    public static final String CONNECTION_URL = "jdbc:mysql://localhost:3306/";
-    public static final String CONNECTION_USERNAME = "root";
-    public static final String CONNECTION_PASS = "Karden_97";
-    public void initFlyWayDB () {
+
+    public void initFlyWayDB () throws IOException {
+            String connectionUrl = new PropertiesFileReader().getPath();
         Flyway flyway = Flyway
                 .configure()
-                .defaultSchema("schema3")
-                .dataSource(CONNECTION_URL, CONNECTION_USERNAME, CONNECTION_PASS)
+                .dataSource("jdbc:h2:./test", null, null)
                 .load();
         flyway.migrate();
     }

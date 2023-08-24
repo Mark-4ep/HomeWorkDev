@@ -8,9 +8,9 @@ public interface TicketService {
 
 
 
-    void getTicket(long id) throws NullOutputException;
+    Ticket getTicket(long id) throws NullOutputException;
     void updateTicket(long ticketId, String fromPlanet, String toPlanet) throws NullOutputException;
     List<Ticket> getAllTicket();
-    void createNewTicket(long client_id, String fromPlanet, String toPlanet) throws NullOutputException;
+    void createNewTicket(String createdAt,long client_id, String fromPlanet, String toPlanet) throws NullOutputException;
     void deleteTicket( long ticketId) throws NullOutputException;
 }
