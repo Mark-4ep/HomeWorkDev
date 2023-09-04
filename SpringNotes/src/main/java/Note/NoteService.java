@@ -13,9 +13,7 @@ public class NoteService {
             throw new NoSuchElementException("This note is empty. Create a note");
         }
             notes.add(note);
-        System.out.println("note = " + note);
         note.setId(notes.indexOf(note));
-        System.out.println("note = " + note);
         return note;
     }
 
