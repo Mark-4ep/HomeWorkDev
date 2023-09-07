@@ -11,34 +11,44 @@ public class NoteService {
     public Note add(Note note){
         if (note.getContent() == null || note.getTitle() == null || note.getId() <= 0) {
             throw new NoSuchElementException("This note is empty, ID must be greater than 0");
-        }else if (notes.get(note.getId()) != null) {
+        }else if (notes.containsValue(note)) {
             throw new NoSuchElementException("A note with such an ID is already scurrying");
         }
-        notes.put(note.getId(), note);
+
+        notes.put(note.getId(),note);
+
         return note;
     }
     public void deleteById(long id) {
-        if (notes.size() < id) {
-            throw new NoSuchElementException("No note found for this: " + id);
-        }
+        verificationId(id);
         notes.remove(id);
     }
     public void update(Note note) {
-        if (notes.size() < note.getId()) {
-            throw new NoSuchElementException("Note does not exist.");
-        }
+        verificationId(note.getId());
 
-        Note newNote = new Note();
-        newNote.setTitle(note.getTitle());
-        newNote.setContent(note.getContent());
+        Note oldNote = notes.get(note.getId());
+        notes.replace(note.getId(), oldNote, note);
+
 
     }
     public Note getById(long id) {
+        verificationId(id);
+
         return notes.get(id);
     }
-    public Map<Long, Note> listAll() {
-        return notes;
+    public List<Note> listAll() {
+        List<Note> listAllNotes = new ArrayList<>();
+
+        for (Map.Entry<Long, Note> entry : notes.entrySet()) {
+            listAllNotes.add(entry.getValue());
+        }
+        return listAllNotes;
+        
     }
 
-
+    public void verificationId(long id) {
+        if (notes.get(id) == null) {
+            throw new NoSuchElementException("The note is missing.");
+        }
+    }
 }
