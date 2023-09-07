@@ -1,29 +1,28 @@
-package Note;
+package com.example.SpringNotes.Note;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
+
 @Service
 public class NoteService {
-    List<Note> notes = new ArrayList<>();
+    Map<Long,Note> notes = new HashMap<>();
+
     public Note add(Note note){
-        if (note.getContent() == null || note.getTitle() == null) {
-            throw new NoSuchElementException("This note is empty. Create a note");
+        if (note.getContent() == null || note.getTitle() == null || note.getId() <= 0) {
+            throw new NoSuchElementException("This note is empty, ID must be greater than 0");
+        }else if (notes.get(note.getId()) != null) {
+            throw new NoSuchElementException("A note with such an ID is already scurrying");
         }
-            notes.add(note);
-        note.setId(notes.indexOf(note));
+        notes.put(note.getId(), note);
         return note;
     }
-
     public void deleteById(long id) {
         if (notes.size() < id) {
             throw new NoSuchElementException("No note found for this: " + id);
         }
-        notes.remove((int)id);
+        notes.remove(id);
     }
-
     public void update(Note note) {
         if (notes.size() < note.getId()) {
             throw new NoSuchElementException("Note does not exist.");
@@ -32,14 +31,12 @@ public class NoteService {
         Note newNote = new Note();
         newNote.setTitle(note.getTitle());
         newNote.setContent(note.getContent());
-        notes.set((int)note.getId(),newNote);
 
     }
-
     public Note getById(long id) {
-        return notes.get((int) id);
+        return notes.get(id);
     }
-    public List<Note> listAll() {
+    public Map<Long, Note> listAll() {
         return notes;
     }
 
