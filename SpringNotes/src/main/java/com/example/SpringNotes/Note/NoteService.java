@@ -9,9 +9,9 @@ public class NoteService {
     Map<Long,Note> notes = new HashMap<>();
 
     public Note add(Note note){
-        if (note.getContent() == null || note.getTitle() == null || note.getId() <= 0) {
+        if (note.getContent().length() == 0 || note.getTitle().length() == 0 || note.getId() <= 0) {
             throw new NoSuchElementException("This note is empty, ID must be greater than 0");
-        }else if (notes.containsValue(note)) {
+        }else if (notes.containsKey(note.getId())) {
             throw new NoSuchElementException("A note with such an ID is already scurrying");
         }
 
@@ -26,10 +26,7 @@ public class NoteService {
     public void update(Note note) {
         verificationId(note.getId());
 
-        Note oldNote = notes.get(note.getId());
-        notes.replace(note.getId(), oldNote, note);
-
-
+        notes.put(note.getId(), note);
     }
     public Note getById(long id) {
         verificationId(id);
@@ -37,13 +34,7 @@ public class NoteService {
         return notes.get(id);
     }
     public List<Note> listAll() {
-        List<Note> listAllNotes = new ArrayList<>();
-
-        for (Map.Entry<Long, Note> entry : notes.entrySet()) {
-            listAllNotes.add(entry.getValue());
-        }
-        return listAllNotes;
-        
+        return new ArrayList<>(notes.values());
     }
 
     public void verificationId(long id) {

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-3">
+    <form action="/note/edit" method="POST" th:object="${note}">
+        <div class="card">
+            <div class="card-header">
+                <b>Edit note </b>
+            </div>
+            <div  class="card-body">
+                <label for="id"></label><input id="id" th:field="*{id}" hidden="hidden"/>
+                <label for="title" class="breadcrumb">
+                    <in class="breadcrumb-item active" aria-current="page" >Title</in>
+                    <textarea  class="form-control" id="title" th:field="*{title}" rows="1"></textarea>
+                </label>
+
+
+                <label for="content" class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">Content</li>
+                    <textarea class="form-control" id="content" th:field="*{content}" rows="3"></textarea>
+                </label>
+
+                <div class="float-right">
+                    <a class="btn btn-primary btn-primary" href="/note/list" role="button">Back to main</a>
+
+
+                    <button type="submit" class="btn btn-primary btn-success" >Save note</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

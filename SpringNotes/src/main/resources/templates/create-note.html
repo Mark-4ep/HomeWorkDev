@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-3">
+        <form action="/note/create" method="POST">
+             <div class="card">
+                <div class="card-header">
+                    <b>Create new Note</b>
+                </div>
+
+                <div class="card-body">
+                    <label for="Title" class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Title</li>
+                        <textarea class="form-control"  rows="1" id="Title" name="title" required></textarea>
+                    </label>
+
+
+                    <label for="Content" class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Content</li>
+                        <textarea class="form-control" rows="3" id="Content" name="content" required></textarea>
+                    </label>
+
+                    <div class="float-right">
+                        <a class="btn btn-primary btn-primary" href="/note/list" role="button">Back to main</a>
+                        <button class="btn btn-primary btn-success" role="button">Add a note</button>
+                    </div>
+                 </div>
+             </div>
+        </form>
+    </div>
+</body>
+</html>

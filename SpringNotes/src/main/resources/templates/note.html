@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-3">
+        <div class="card">
+            <div class="card-header">
+                <span th:text="'Notes: ' +${notes.size()}"></span>
+                <a  class="btn btn-primary btn-primary float-right" href="/note/create" role="button" >Add New Note</a>
+            </div>
+
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="row justify-content-start">
+                            <h3 class="col-4">
+                                Title
+                            </h3>
+                            <h3 class="col-4">
+                                Content
+                            </h3>
+                        </div>
+                    </li>
+                    <div class="list-group-item">
+                        <div th:each="note: ${notes}" class="row justify-content-start" style="margin-bottom: 10px; background-color: #F4F4F5; padding: 10px;">
+                            <div th:text="${note.title}"  class="col-4" ></div>
+                            <div th:text="${note.content}" class="col-4"></div>
+                            <div class="col-4" style="padding-right:0px;">
+                                <div class="float-right">
+                                    <a th:href="'/note/edit?id=' + ${note.id}" class="btn btn-primary btn-success"  role="button">Edit a note</a>
+                                    <a th:href="'/note/delete?id=' + ${note.id}" class="btn btn-primary btn-danger" role="button">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
