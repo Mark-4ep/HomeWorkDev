@@ -33,7 +33,9 @@
                             <div class="col-4" style="padding-right:0px;">
                                 <div class="float-right">
                                     <a th:href="'/note/edit?id=' + ${note.id}" class="btn btn-primary btn-success"  role="button">Edit a note</a>
-                                    <a th:href="'/note/delete?id=' + ${note.id}" class="btn btn-primary btn-danger" role="button">Delete</a>
+                                    <form action="@{'/note/delete?id=' + ${note.id}}" class="float-right"  method="post" style="padding-left:5px;">
+                                        <input class="btn btn-primary btn-danger" type="submit" value="Delete" th:formaction="'/note/delete?id=' + ${note.id}">
+                                    </form>
                                 </div>
                             </div>
                         </div>

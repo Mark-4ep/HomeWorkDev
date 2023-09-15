@@ -53,11 +53,11 @@ public class NoteController {
         }
 
 
-    @GetMapping("/delete")
-    public RedirectView delete(@RequestParam long id) {
+    @PostMapping("/delete")
+    public RedirectView delete(@ModelAttribute Note note) {
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/note/list");
-        noteService.deleteById(id);
+        noteService.deleteById(note.getId());
         return redirectView;
     }
 
