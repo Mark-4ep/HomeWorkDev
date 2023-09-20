@@ -1,45 +1,46 @@
 package com.example.SpringNotes.Note;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-
+@RequiredArgsConstructor
 @Service
 public class NoteService {
-    Map<Long,Note> notes = new HashMap<>();
+    private final NoteRepository noteRepository;
 
     public Note add(Note note){
-        if (note.getContent().length() == 0 || note.getTitle().length() == 0 || note.getId() <= 0) {
-            throw new NoSuchElementException("This note is empty, ID must be greater than 0");
-        }else if (notes.containsKey(note.getId())) {
-            throw new NoSuchElementException("A note with such an ID is already scurrying");
-        }
-
-        notes.put(note.getId(),note);
-
+        noteRepository.save(note);
         return note;
     }
-    public void deleteById(long id) {
-        verificationId(id);
-        notes.remove(id);
+    public void deleteById(int id) {
+        noteRepository.findById(id)
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> {
+                    throw new NoSuchElementException("The note is missing.");
+                });
+        noteRepository.deleteById(id);
     }
     public void update(Note note) {
-        verificationId(note.getId());
-
-        notes.put(note.getId(), note);
+        noteRepository.findById(note.getId())
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> {
+                    throw new NoSuchElementException("The note is missing.");
+                });
+        noteRepository.save(note);
     }
-    public Note getById(long id) {
-        verificationId(id);
+    public Note getById(int id) {
 
-        return notes.get(id);
+        return  noteRepository.findById(id)
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> {
+                    throw new NoSuchElementException("The note is missing.");
+                });
     }
     public List<Note> listAll() {
-        return new ArrayList<>(notes.values());
-    }
-
-    public void verificationId(long id) {
-        if (notes.get(id) == null) {
-            throw new NoSuchElementException("The note is missing.");
-        }
+        return noteRepository.findAll();
     }
 }

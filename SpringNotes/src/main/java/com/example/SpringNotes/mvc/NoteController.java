@@ -14,7 +14,6 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/note")
 public class NoteController {
  private final NoteService noteService;
- private long number = 1;
     @GetMapping(value = "/list" )
     public ModelAndView getList() {
         ModelAndView modelAndView = new ModelAndView("note");
@@ -31,33 +30,32 @@ public class NoteController {
     public RedirectView create(@ModelAttribute Note note) {
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/note/list");
-        note.setId(number++);
         noteService.add(note);
         return redirectView;
     }
 
 
 
-        @GetMapping(value = "/edit")
-        public String editNote(Model model, @RequestParam long id) {
-            Note note = noteService.getById(id);
-            model.addAttribute("note" , note);
-            return ("edit-note");
-        }
-        @PostMapping(value = "/edit")
-        public RedirectView edit(@ModelAttribute Note note) {
-            RedirectView redirectView = new RedirectView();
-            redirectView.setUrl("/note/list");
-            noteService.update(note);
-            return redirectView;
-        }
+    @GetMapping(value = "/edit")
+    public String editNote(Model model, @RequestParam int id) {
+        Note note = noteService.getById(id);
+        model.addAttribute("note" , note);
+        return ("edit-note");
+    }
+    @PostMapping(value = "/edit")
+    public RedirectView edit(@ModelAttribute Note note) {
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("/note/list");
+        noteService.update(note);
+        return redirectView;
+    }
 
 
     @PostMapping("/delete")
-    public RedirectView delete(@ModelAttribute Note note) {
+    public RedirectView delete(@RequestParam int id) {
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/note/list");
-        noteService.deleteById(note.getId());
+        noteService.deleteById(id);
         return redirectView;
     }
 
