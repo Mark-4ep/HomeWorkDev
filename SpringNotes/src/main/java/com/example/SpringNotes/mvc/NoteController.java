@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 @RequestMapping("/note")
 public class NoteController {
- private final NoteService noteService;
+    private final NoteService noteService;
     @GetMapping(value = "/list" )
     public ModelAndView getList() {
         ModelAndView modelAndView = new ModelAndView("note");
