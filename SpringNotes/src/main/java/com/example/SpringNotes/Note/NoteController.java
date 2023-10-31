@@ -1,7 +1,5 @@
-package com.example.SpringNotes.mvc;
+package com.example.SpringNotes.Note;
 
-import com.example.SpringNotes.Note.Note;
-import com.example.SpringNotes.Note.NoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
